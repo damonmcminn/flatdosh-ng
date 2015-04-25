@@ -1,0 +1,44 @@
+doctype html
+
+html(data-ng-app="flatdosh")
+
+  head
+    title flatdosh
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/flatly/bootstrap.min.css", rel="stylesheet")
+    link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", rel="stylesheet")
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js')
+    script(type='text/javascript', src='bundle.js')
+    script(type='text/javascript', src='templates.js')
+    link(href='style.css', rel='stylesheet')
+
+  body
+    div.container
+      // unnecessary as head is blocking evertying...
+      //div(data-ng-if="true").text-center
+      //  h4 Loading... hold your horses!
+      //  i.fa.fa-cog.fa-spin.fa-5x(id='loading-cog')
+      #info.row.text-center
+        h3 No more bitter, twisted flatmates
+      // make this an include/extend
+      //#login(data-ng-controller="login as vm").container-fluid
+      #login.container-fluid
+        form(data-ng-submit="")
+          div.form-group
+            label Email
+            input(
+              data-ng-model="vm.user",
+              type='email',
+              required=true,
+              placeholder='name@domain.tld').form-control
+          div.form-group
+            label Password
+            input(
+              data-ng-model="vm.password"
+              type='password',
+              placeholder='correct horse battery staple').form-control
+          div.form-group.row
+            div.col-xs-6
+              button.btn.btn-primary.btn-full-width(type='button') Login
+            div.col-xs-6
+              button.btn.btn-default.btn-full-width(type='button') Register
