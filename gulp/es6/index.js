@@ -31,9 +31,9 @@ gulp.task('lint', lint);
 gulp.task('watch', function() {
   livereload.listen();
   gulp.watch('src/index.jade', ['html']);
-  gulp.watch('src/**/*.jade', ['templates']);
-  gulp.watch('src/*.css', ['css']).on('changed', livereload.changed);
-  gulp.watch(['src/index.js', 'src/**/*.js'], ['lint', 'js']);
+  gulp.watch(['src/**/*.jade'], ['templates']);
+  gulp.watch(['src/*.css'], ['css']).on('changed', livereload.changed);
+  gulp.watch(['src/**/*.js', 'src/*.js'], ['lint', 'js']);
 });
 
 export default gulp.task('default',[

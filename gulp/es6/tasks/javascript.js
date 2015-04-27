@@ -7,6 +7,10 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 
 import babelify from 'babelify';
+import preprocess from 'gulp-preprocess';
+
+// sort this out
+import watchify from 'watchify';
 
 export default function() {
   return browserify({entries: './src/index.js', debug: true})
@@ -16,6 +20,7 @@ export default function() {
   .pipe(buffer())
   .pipe(sourcemaps.init({loadMaps: true}))
   // transform tasks follow
+  .pipe(preprocess())
   .pipe(uglify())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('build'))

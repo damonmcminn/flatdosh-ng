@@ -64,9 +64,9 @@ _gulp2['default'].task('lint', _lint2['default']);
 _gulp2['default'].task('watch', function () {
   _livereload2['default'].listen();
   _gulp2['default'].watch('src/index.jade', ['html']);
-  _gulp2['default'].watch('src/**/*.jade', ['templates']);
-  _gulp2['default'].watch('src/*.css', ['css']).on('changed', _livereload2['default'].changed);
-  _gulp2['default'].watch(['src/index.js', 'src/**/*.js'], ['lint', 'js']);
+  _gulp2['default'].watch(['src/**/*.jade'], ['templates']);
+  _gulp2['default'].watch(['src/*.css'], ['css']).on('changed', _livereload2['default'].changed);
+  _gulp2['default'].watch(['src/**/*.js', 'src/*.js'], ['lint', 'js']);
 });
 
 exports['default'] = _gulp2['default'].task('default', ['server', 'js', 'html', 'css', 'templates', 'lint', 'watch']);
