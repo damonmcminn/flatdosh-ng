@@ -1,0 +1,13 @@
+div(data-ng-controller='balanceCtrl as vm').text-center
+  table.table.table-bordered
+    thead
+      tr
+        th.text-center(data-ng-repeat='balance in vm.balances')
+          | {{balance.name | uppercase}}
+    tbody
+      tr
+        td(
+          data-ng-repeat='balance in vm.balances',
+          data-ng-class='{"warning":balance.warning, "danger":balance.danger}'
+          )
+          | {{balance.balance | money}}
