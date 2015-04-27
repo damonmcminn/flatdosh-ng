@@ -2,7 +2,7 @@ div(data-ng-controller='balanceCtrl as vm').text-center
   table.table.table-bordered
     thead
       tr
-        th.text-center(data-ng-repeat='balance in vm.balances')
+        th.text-center(data-ng-repeat='balance in vm.balances').col-xs-2
           | {{balance.name | uppercase}}
     tbody
       tr
