@@ -7,6 +7,8 @@ export default function(API) {
       return API.balance()
         .success(balances => {
 
+          // attach labels for determing warning/danger classes
+
           let debt = balances.reduce((prev, curr) => {
             return prev.balance < curr.balance ? prev : curr;
           });
