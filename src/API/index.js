@@ -23,8 +23,6 @@ export default function($http, $window) {
 
       save (data) {
 
-        // add extra info to data
-
         return $http({
           method: 'post',
           url: `${API}expense`,
