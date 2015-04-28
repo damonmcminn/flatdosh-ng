@@ -36,6 +36,8 @@ gulp.task('watch', function() {
   gulp.watch(['src/**/*.js', 'src/*.js'], ['lint', 'js']);
 });
 
+gulp.task('compile', ['html', 'css', 'templates', 'js']);
+
 export default gulp.task('default',[
-  'server', 'js', 'html', 'css', 'templates', 'lint', 'watch'
+  'server', 'js', 'html', 'css', 'templates', 'lint', 'watch', 'compile'
 ]);

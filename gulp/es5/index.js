@@ -69,6 +69,8 @@ _gulp2['default'].task('watch', function () {
   _gulp2['default'].watch(['src/**/*.js', 'src/*.js'], ['lint', 'js']);
 });
 
-exports['default'] = _gulp2['default'].task('default', ['server', 'js', 'html', 'css', 'templates', 'lint', 'watch']);
+_gulp2['default'].task('compile', ['html', 'css', 'templates', 'js']);
+
+exports['default'] = _gulp2['default'].task('default', ['server', 'js', 'html', 'css', 'templates', 'lint', 'watch', 'compile']);
 module.exports = exports['default'];
 //# sourceMappingURL=index.js.map
