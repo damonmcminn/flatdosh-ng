@@ -16,22 +16,52 @@ html(data-ng-app="flatdosh")
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.js')
     <!-- @endif -->
 
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap.min.js')
 
     script(type='text/javascript', src='templates.js')
     script(type='text/javascript', src='bundle.js')
     link(href='style.css', rel='stylesheet')
 
   body
-    div.container(data-ng-controller='mainCtrl as main')
+    div(data-ng-controller='mainCtrl as main')
+
+      nav.navbar-default.navbar-fixed-top(data-ng-show='main.loggedIn')
+        div.container
+
+          div.navbar-header
+            button.navbar-toggle.collapsed(
+              type='button',
+              data-ng-click='main.toggleCollapsed()',
+              aria-expanded='false',
+              aria-controls='navbar'
+              )
+              span.sr-only Toggle nav
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+
+            div.navbar-brand Hello, {{main.name}}!
+
+          #navbar.navbar-collapse.collapse(collapse='main.collapsed')
+            ul.nav.navbar-nav
+              li(data-ng-class='{"active": main.page === "save"}')
+                a(href='#', data-ng-click='main.change("save")') Save expense
+              li(data-ng-class='{"active": main.page === "history"}')
+                a(href='#', data-ng-click='main.change("history")') Expense history
+            ul.nav.navbar-nav.navbar-right
+              li(data-ng-click='main.logout()')
+                a(href='#') Logout
       // unnecessary as head is blocking evertying...
       //div(data-ng-if="true").text-center
       //  h4 Loading... hold your horses!
       //  i.fa.fa-cog.fa-spin.fa-5x(id='loading-cog')
-      #login(
-          data-ng-include="'login/index.html'",
-          data-ng-if='!main.loggedIn'
-      )
+      div.container
+        #login(
+            data-ng-include="'login/index.html'",
+            data-ng-if='!main.loggedIn'
+        )
 
-      div(data-ng-if='main.loggedIn')
-        #balances(data-ng-include='"balance/index.html"')
-        #expense(data-ng-include='"expense/index.html"')
+        div(data-ng-if='main.loggedIn')
+          #balances(data-ng-include='"balance/index.html"')
+          #expense(data-ng-include='"expense/index.html"', data-ng-show='main.page === "save"')
+          #history(data-ng-include='"history/index.html"', data-ng-show='main.page === "history"')
