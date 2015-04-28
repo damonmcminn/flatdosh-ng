@@ -18,7 +18,7 @@ export default function() {
   .bundle()
   .pipe(source('bundle.js'))
   .pipe(buffer())
-  .pipe(sourcemaps.init({loadMaps: true}))
+  .pipe(sourcemaps.init({loadMaps: process.env.NODE_ENV === 'dev'}))
   // transform tasks follow
   .pipe(preprocess())
   .pipe(uglify())
