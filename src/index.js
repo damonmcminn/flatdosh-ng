@@ -3,6 +3,7 @@ import auth from './auth';
 import balance from './balance';
 import expense from './expense';
 import {money} from './filters';
+import history from './history';
 import login from './login';
 import ls from './ls';
 import main from './main';
@@ -10,7 +11,7 @@ import pubsub from './pubsub';
 import register from './register';
 import user from './user';
 
-angular.module('flatdosh', ['templates'])
+angular.module('flatdosh', ['templates', 'ui.bootstrap'])
   // FACTORIES
   .factory('API', ['$http', '$window', API])
   .factory('auth', ['ls', auth])
@@ -25,6 +26,7 @@ angular.module('flatdosh', ['templates'])
   .controller('balanceCtrl', ['balance', 'pubsub', balance.ctrl])
   .controller('expenseCtrl', ['expense', 'pubsub', expense.ctrl])
   .controller('loginCtrl', ['login', login.ctrl])
+  .controller('historyCtrl', ['expense','pubsub', history.ctrl])
   .controller('mainCtrl', ['ls', 'pubsub', main])
   .controller('registerCtrl', ['register', register.ctrl])
   .controller('userCtrl', ['user', user.ctrl])
