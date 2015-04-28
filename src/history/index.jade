@@ -1,0 +1,12 @@
+div(data-ng-controller='historyCtrl as vm')
+  table.table.table-bordered.table-striped
+    thead
+      tr
+        th Name
+        th.text-right Amount
+        th.text-right When
+    tbody
+      tr(data-ng-repeat='expense in vm.history')
+        td {{expense.name}}
+        td.text-right {{expense.amount | money}}
+        td.text-right {{expense.timestamp | date}}
