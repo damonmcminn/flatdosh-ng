@@ -3,9 +3,11 @@ export default function(ls, pubsub) {
   let main = this;
 
   let user = ls.get('user');
-  let {name} = user;
 
-  main.name = name;
+  if (user) {
+    let {name} = user;
+    main.name = name;
+  }
 
   main.change = function(page) {
     main.toggleCollapsed();
@@ -17,6 +19,8 @@ export default function(ls, pubsub) {
   pubsub.sub('login', success => {
     if (success) {
       main.loggedIn = true;
+      let {name} = user;
+      main.name = name;
     }
   });
 
