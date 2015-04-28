@@ -1,15 +1,8 @@
 export default function(expenseFactory, pubsub) {
 
-
   let vm = this;
-
-  vm.expenses = [];
-
-  vm.history = function() {
-
-    expenseFactory.all().then(history => vm.expenses = history);
-
-  };
+  
+  pubsub.pub('page', 'save');
 
   vm.save = function() {
 
