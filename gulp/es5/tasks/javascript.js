@@ -29,7 +29,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 
 exports['default'] = function () {
-  return browserify({ entries: './src/index.js', debug: true }).transform(_babelify2['default']).bundle().pipe(source('bundle.js')).pipe(buffer()).pipe(sourcemaps.init({ loadMaps: process.env.NODE_ENV === 'dev' }))
+  return browserify({ entries: './src/index.js', debug: true }).transform(_babelify2['default']).bundle().pipe(source('bundle.js')).pipe(buffer()).pipe(sourcemaps.init({ loadMaps: true }))
   // transform tasks follow
   .pipe(_preprocess2['default']()).pipe(uglify()).pipe(sourcemaps.write('./')).pipe(gulp.dest('build')).pipe(livereload());
 };
