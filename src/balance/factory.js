@@ -26,6 +26,10 @@ export default function(API) {
               }
             });
 
+          balances.forEach(balance => {
+            balance.name = balance.name.split('@').shift();
+          });
+
           return balances;
 
         });
