@@ -3,10 +3,12 @@ div(data-ng-controller='historyCtrl as vm')
     thead
       tr
         th Name
+        th Description
         th.text-right Amount
         th.text-right When
     tbody
       tr(data-ng-repeat='expense in vm.history')
-        td {{expense.name}}
+        td.text-left {{expense.name}}
+        td {{expense.description}}
         td.text-right {{expense.amount | money}}
-        td.text-right {{expense.timestamp | date}}
+        td.text-right {{expense.timestamp | date:'d MMM yy'}}
