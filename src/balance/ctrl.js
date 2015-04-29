@@ -1,11 +1,15 @@
 export default function(balance, pubsub) {
 
+  function getBalances() {
+    balance.get().success(balances => vm.balances = balances);
+  }
+  
   let vm = this;
 
-  pubsub.sub('update balances', msg => {
-    balance.get().success(balances => vm.balances = balances);
-  });
+  getBalances();
 
-  balance.get().success(balances => vm.balances = balances);
+  pubsub.sub('update balances', msg => {
+    getBalances();
+  });
 
 }
