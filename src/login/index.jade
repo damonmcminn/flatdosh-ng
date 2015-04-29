@@ -1,9 +1,19 @@
 div(data-ng-controller="loginCtrl as vm")
   form.container-fluid(
-    data-ng-submit='vm.login()',
-    data-ng-keydown='vm.error = null',
-    name='login'
-    )
+      data-ng-submit='vm.submit()',
+      data-ng-keydown='vm.error = null',
+      name='login'
+  )
+    tabset
+      tab(heading='Login', select='vm.select("login")', active='vm.selectLogin')
+      tab(heading='Register', select='vm.select("register")')
+        div.form-group
+          label Name
+          input.form-control(
+            data-ng-model='vm.user.name',
+            type='text',
+            data-ng-required='vm.action === "register"'
+          )
     span.form-error {{vm.error}}
     div.form-group(data-ng-class='{"has-error": vm.error === "User not found"}')
       label Email
@@ -20,15 +30,8 @@ div(data-ng-controller="loginCtrl as vm")
         required=true,
         placeholder='correct horse battery staple').form-control
     div.form-group.row
-      div.col-xs-6
+      div.col-xs-12
         button.btn.btn-primary(
           type='submit',
           data-ng-disabled='login.$invalid'
-        ) Login
-      div.col-xs-6(data-ng-controller='registerCtrl as register')
-        // no registration at this point
-        button.btn.btn-default(
-          type='button',
-          data-ng-click='register.do(vm.user)',
-          data-ng-disabled='true'
-          ) Register
+        ) {{vm.action | uppercase}}
