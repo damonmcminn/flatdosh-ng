@@ -19,7 +19,7 @@ export default function(ls, pubsub) {
   pubsub.sub('login', success => {
     if (success) {
       main.loggedIn = true;
-      let {name} = user;
+      let {name} = ls.get('user');
       main.name = name;
     }
   });
@@ -29,6 +29,7 @@ export default function(ls, pubsub) {
   main.logout = function() {
 
     ls.drop('token');
+    ls.drop('user');
     main.loggedIn = false;
 
   }
