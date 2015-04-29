@@ -27,6 +27,6 @@ body {
   color: red;
 }
 
-#balances, thead {
-  font-size: 0.7em;
+#balances thead {
+  font-size: 0.6em;
 }
