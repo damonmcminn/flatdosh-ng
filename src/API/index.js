@@ -51,6 +51,15 @@ export default function($http, $window) {
         headers: {authorization}
       });
 
+    },
+
+    register (user) {
+
+      return $http({
+        method: 'post',
+        url: API + 'register',
+        data: user
+      });
     }
 
   };

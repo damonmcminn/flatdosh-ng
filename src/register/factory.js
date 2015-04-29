@@ -1,9 +1,10 @@
-export default function(http) {
+export default function(API) {
 
   return {
 
     do (user) {
-      console.log(`Registering ${user.email}`);
+
+      return API.register(user)
     }
 
   };
