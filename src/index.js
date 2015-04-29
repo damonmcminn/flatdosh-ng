@@ -25,10 +25,9 @@ angular.module('flatdosh', ['templates', 'ui.bootstrap'])
   // CONTROLLERS
   .controller('balanceCtrl', ['balance', 'pubsub', balance.ctrl])
   .controller('expenseCtrl', ['expense', 'pubsub', expense.ctrl])
-  .controller('loginCtrl', ['login', login.ctrl])
+  .controller('loginCtrl', ['login', 'register', login.ctrl])
   .controller('historyCtrl', ['expense','pubsub', history.ctrl])
   .controller('mainCtrl', ['ls', 'pubsub', main])
-  .controller('registerCtrl', ['register', register.ctrl])
   .controller('userCtrl', ['user', user.ctrl])
   //CONFIG
   .config(['$httpProvider', hp => {
