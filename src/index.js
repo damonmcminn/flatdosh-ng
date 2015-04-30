@@ -26,11 +26,14 @@ angular.module('flatdosh', ['templates', 'ui.bootstrap'])
   .controller('balanceCtrl', ['balance', 'pubsub', balance.ctrl])
   .controller('expenseCtrl', ['expense', 'pubsub', expense.ctrl])
   .controller('loginCtrl', ['login', 'register', login.ctrl])
-  .controller('historyCtrl', ['expense','pubsub', history.ctrl])
+  .controller('historyCtrl', ['expense', 'pubsub', 'ls', history.ctrl])
   .controller('mainCtrl', ['ls', 'pubsub', main])
   .controller('userCtrl', ['user', user.ctrl])
   //CONFIG
   .config(['$httpProvider', hp => {
     ['auth'].forEach(interceptor => hp.interceptors.push(interceptor));
+    hp.defaults.headers.delete = {
+      'Content-Type': 'application/json'
+    }
   }])
   .filter('money', money);
