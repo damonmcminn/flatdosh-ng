@@ -12,7 +12,7 @@ export default function(ls, pubsub) {
   main.change = function(page) {
     main.toggleCollapsed();
     main.page = page;
-  }
+  };
 
   pubsub.sub('page', page => main.page = page);
 
@@ -32,11 +32,11 @@ export default function(ls, pubsub) {
     ls.drop('user');
     main.loggedIn = false;
 
-  }
+  };
 
   main.collapsed = true;
   main.toggleCollapsed = function() {
     main.collapsed = !main.collapsed;
-  }
+  };
 
 }

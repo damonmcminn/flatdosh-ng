@@ -6,6 +6,6 @@ export function money() {
 
     return amt < 0 ? `-£${(-amt).toFixed(2)}` : `£${amt.toFixed(2)}`;
 
-  }
+  };
 
 }
