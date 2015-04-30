@@ -1,7 +1,7 @@
 export default function(expenseFactory, pubsub) {
 
   let vm = this;
-  
+
   pubsub.pub('page', 'save');
 
   vm.save = function() {
@@ -11,5 +11,5 @@ export default function(expenseFactory, pubsub) {
       vm.expense = null; // clear the form
     });
 
-  }
+  };
 }

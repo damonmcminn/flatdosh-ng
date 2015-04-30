@@ -1,4 +1,10 @@
 div(data-ng-controller='historyCtrl as vm')
+  div.row
+    #delete-btn.col-xs-3
+      button.btn.btn-danger(
+        data-ng-click='vm.deleteExpenses()',
+        type='button')
+        | Delete selected
   table.table.table-bordered.table-striped
     thead
       tr
@@ -6,9 +12,19 @@ div(data-ng-controller='historyCtrl as vm')
         th Description
         th.text-right Amount
         th.text-right When
+        th.text-center.delete-checkboxes Delete
     tbody
-      tr(data-ng-repeat='expense in vm.history')
-        td.text-left {{expense.name}}
+      tr(
+        data-ng-repeat='expense in vm.history',
+        data-ng-hide='expense.deleted',
+        )
+        td {{expense.name}}
         td {{expense.description}}
         td.text-right {{expense.amount | money}}
         td.text-right {{expense.timestamp | date:'d MMM yy'}}
+        td.text-center.delete-checkboxes
+          input(
+            type='checkbox',
+            data-ng-click='vm.checkDeletion($index)',
+            data-ng-model='expense.delete',
+            data-ng-disabled='vm.user !== expense.user')

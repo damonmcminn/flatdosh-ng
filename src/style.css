@@ -34,3 +34,11 @@ body {
 #expense {
   margin-top: -1.5em;
 }
+
+#delete-btn {
+  float: right;
+}
+
+.delete-checkboxes {
+  width: 40px;
+}
