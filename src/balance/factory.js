@@ -9,11 +9,15 @@ export default function(API) {
 
           // attach labels for determing warning/danger classes
 
+          // the user with the largest negative balance
           let debt = balances.reduce((prev, curr) => {
             return prev.balance < curr.balance ? prev : curr;
           });
 
-          debt.balance < 0 ? debt.danger = true : null;
+          // flag debt for styling
+          if (debt.balance < 0) {
+            debt.danger = true;
+          }
 
           // only executes if balances are less than zero
           // ergo a debt.danger exists
@@ -22,7 +26,7 @@ export default function(API) {
               if (balance.balance === debt.balance) {
                 balance.danger = true;
               } else {
-                balance.warning = true
+                balance.warning = true;
               }
             });
 
