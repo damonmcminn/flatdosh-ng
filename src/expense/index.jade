@@ -1,6 +1,13 @@
 div(data-ng-controller="expenseCtrl as vm")
   form.container-fluid(data-ng-submit='vm.save()', name='expense')
     div.form-group
+      label Description
+      input(
+        data-ng-model='vm.expense.description',
+        type='text',
+        required=true
+      ).form-control
+    div.form-group
       label Amount
       input(
         data-ng-model='vm.expense.amount',
@@ -8,13 +15,6 @@ div(data-ng-controller="expenseCtrl as vm")
         required=true,
         min=0.01,
         step=0.01
-      ).form-control
-    div.form-group
-      label Description
-      input(
-        data-ng-model='vm.expense.description',
-        type='text',
-        required=true
       ).form-control
     div.form-group.row
       div.col-xs-12
