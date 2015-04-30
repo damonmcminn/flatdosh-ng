@@ -14,6 +14,13 @@ export default function(API, events) {
       return API.expense.save(expense)
         .then(res => res.data);
 
+    },
+
+    destroy (expenses) {
+
+      return API.expense.destroy(expenses)
+        .then(res => res.data);
+
     }
 
   };
