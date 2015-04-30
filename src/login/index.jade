@@ -4,6 +4,7 @@ div(data-ng-controller="loginCtrl as vm")
       data-ng-keydown='vm.error = null',
       name='login'
   )
+    span.form-error {{vm.error}}
     tabset
       tab(heading='Login', select='vm.select("login")', active='vm.selectLogin')
       tab(heading='Register', select='vm.select("register")')
@@ -14,7 +15,6 @@ div(data-ng-controller="loginCtrl as vm")
             type='text',
             data-ng-required='vm.action === "register"'
           )
-    span.form-error {{vm.error}}
     div.form-group(data-ng-class='{"has-error": vm.error === "User not found"}')
       label Email
       input(
