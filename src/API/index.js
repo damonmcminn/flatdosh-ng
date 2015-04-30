@@ -35,6 +35,20 @@ export default function($http, $window) {
 
         return $http.get(`${API}expense`);
 
+      },
+
+      destroy (expenses) {
+
+        console.log(expenses);
+
+        return $http({
+
+          method: 'delete',
+          url: API + 'expense',
+          data: expenses
+
+        });
+
       }
 
     },
