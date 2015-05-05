@@ -1,11 +1,6 @@
-export default function($http, $window) {
+export default function($http, $window, group) {
 
-  /*
-  let dev = /\w+$/i.exec($location.host).pop() === 'dev';
-  let API = dev ? $location.host :
-  */
-
-  let API = 'https://api.damonmcminn.com/flatdosh/';
+  let API = 'https://flatdosh.com/api/';
 
   /* @if NODE_ENV=='dev' */
     API = 'http://api.dev/flatdosh/';
@@ -15,7 +10,7 @@ export default function($http, $window) {
 
     balance () {
 
-      return $http.get(API + 'balance').success(res => res.data);
+      return $http.get(`${API}balance/${group.id}`).success(res => res.data);
 
     },
 
@@ -33,7 +28,7 @@ export default function($http, $window) {
 
       all () {
 
-        return $http.get(`${API}expense`);
+        return $http.get(`${API}expense/${group.id}`);
 
       },
 
@@ -74,6 +69,10 @@ export default function($http, $window) {
         url: API + 'register',
         data: user
       });
+    },
+
+    settings () {
+      return $http.get(API + 'settings');
     }
 
   };
