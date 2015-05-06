@@ -1,5 +1,9 @@
-div(data-ng-controller="expenseCtrl as vm")
+#expense(data-ng-controller="expenseCtrl as vm")
   form.container-fluid(data-ng-submit='vm.save()', name='expense')
+    div.form-group
+      select.form-control(
+        data-ng-model='vm.expense.spender',
+        data-ng-options='c.id as c.name for c in vm.members')
     div.form-group
       label Description
       input(
@@ -18,7 +22,7 @@ div(data-ng-controller="expenseCtrl as vm")
       ).form-control
     div.form-group.row
       div.col-xs-12
-        button.btn.btn-primary(
+        button.btn.btn-primary.full-width-btn(
           type='submit',
           data-ng-disabled='expense.$invalid'
         ) SAVE

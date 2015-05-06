@@ -21,6 +21,10 @@ export default function(API, events) {
       return API.expense.destroy(expenses)
         .then(res => res.data);
 
+    },
+
+    members () {
+      return API.members();
     }
 
   };
