@@ -1,30 +1,32 @@
-div(data-ng-controller='historyCtrl as vm')
-  div.row
-    #delete-btn.col-xs-3
-      button.btn.btn-danger(
-        data-ng-click='vm.deleteExpenses()',
-        type='button')
-        | Delete selected
-  table.table.table-bordered.table-striped
-    thead
-      tr
-        th Name
-        th Description
-        th.text-right Amount
-        th.text-right When
-        th.text-center.delete-checkboxes Delete
-    tbody
-      tr(
-        data-ng-repeat='expense in vm.history',
-        data-ng-hide='expense.deleted',
-        )
-        td {{expense.name}}
-        td {{expense.description}}
-        td.text-right {{expense.amount | money}}
-        td.text-right {{expense.timestamp | date:'d MMM yy'}}
-        td.text-center.delete-checkboxes
-          input(
-            type='checkbox',
-            data-ng-click='vm.checkDeletion($index)',
-            data-ng-model='expense.delete',
-            data-ng-disabled='vm.user !== expense.user')
+#history(data-ng-controller='historyCtrl as vm')
+  #above-history-list.row.container
+    #rotate.text-center Rotate device for more info and to delete expenses
+    button.btn.btn-danger(
+      id='delete-btn',
+      data-ng-click='vm.deleteExpenses()',
+      type='button')
+      | Delete selected
+  div.row.container
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th.weeny Name
+          th Desc.
+          th.text-right Amount
+          th.text-right When
+          th.text-center.delete-checkboxes.weeny Delete
+      tbody
+        tr(
+          data-ng-repeat='expense in vm.history',
+          data-ng-hide='expense.deleted',
+          )
+          td.weeny {{expense.name}}
+          td {{expense.description}}
+          td.text-right {{expense.amount | money}}
+          td.text-right {{expense.timestamp | date:'d/MM'}}
+          td.text-center.delete-checkboxes.weeny
+            input(
+              type='checkbox',
+              data-ng-click='vm.checkDeletion($index)',
+              data-ng-model='expense.delete',
+              data-ng-disabled='vm.user !== expense.creator || vm.shared === expense.user')
