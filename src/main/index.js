@@ -1,52 +1,25 @@
-export default function(ls, pubsub, group, API) {
+export default function(auth, $state, group) {
 
-  let main = this;
-  main.loggedIn = !!ls.get('token');
-  main.collapsed = true;
+  let vm = this;
 
-  if (main.loggedIn) {
-    // get settings
-    API.settings().success(user => {
+  let loggedIn = auth.loggedIn();
 
-      ls.set('user', user);
-      let {groups} = user;
-
-      // only a single group at the moment
-      let g = groups[0];
-
-      group.id = g.id;
-      group.name = g.name;
-
-      main.group = group;
-
-    });
-
+  if (!loggedIn) {
+    $state.go('login');
   }
 
-  // events
-  pubsub.sub('page', page => main.page = page);
+  vm.group = group;
 
-  pubsub.sub('login', success => {
-    if (success) {
-      main.loggedIn = true;
-    }
-  });
+  // set initial states
+  vm.collapsed = true;
 
-  main.logout = function() {
-
-    ls.drop('token');
-    ls.drop('user');
-    main.loggedIn = false;
-
+  vm.logout = function() {
+    auth.logout();
+    $state.go('login');
   };
 
-  main.change = function(page) {
-    main.toggleCollapsed();
-    main.page = page;
-  };
-
-  main.toggleCollapsed = function() {
-    main.collapsed = !main.collapsed;
+  vm.toggleCollapsed = function() {
+    vm.collapsed = !vm.collapsed;
   };
 
 }
