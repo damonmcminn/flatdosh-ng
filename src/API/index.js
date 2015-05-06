@@ -73,6 +73,10 @@ export default function($http, $window, group) {
 
     settings () {
       return $http.get(API + 'settings');
+    },
+
+    members () {
+      return $http.get(`${API}members/${group.id}`);
     }
 
   };
