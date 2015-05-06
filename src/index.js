@@ -5,37 +5,37 @@ import expense from './expense';
 import {money} from './filters';
 import group from './group';
 import history from './history';
+import interceptor from './interceptor';
 import login from './login';
 import ls from './ls';
 import main from './main';
-import pubsub from './pubsub';
-import register from './register';
+import router from './router';
 import user from './user';
 
-angular.module('flatdosh', ['templates', 'ui.bootstrap'])
+angular.module('flatdosh', ['templates', 'ui.bootstrap', 'ui.router'])
   // FACTORIES
   .factory('API', ['$http', '$window', 'group', API])
-  .factory('auth', ['ls', auth])
+  .factory('auth', ['ls', 'API', '$state', auth])
   .factory('balance', ['API', balance.factory])
-  .factory('expense', ['API', 'pubsub', expense.factory])
+  .factory('expense', ['API', expense.factory])
   .factory('group', ['ls', group.factory])
-  .factory('login', ['API', 'ls', 'pubsub', 'group', login.factory])
+  .factory('interceptor', ['ls', interceptor])
   .factory('ls', [ls])
-  .factory('pubsub', [pubsub])
-  .factory('register', ['API', register.factory])
   .factory('user', [user.factory])
   // CONTROLLERS
-  .controller('balanceCtrl', ['balance', 'pubsub', balance.ctrl])
-  .controller('expenseCtrl', ['expense', 'pubsub', 'group', expense.ctrl])
-  .controller('loginCtrl', ['login', 'register', login.ctrl])
-  .controller('historyCtrl', ['expense', 'pubsub', 'ls', history.ctrl])
-  .controller('mainCtrl', ['ls', 'pubsub', 'group', 'API', main])
+  .controller('balanceCtrl', ['balance', balance.ctrl])
+  .controller('expenseCtrl', ['expense', 'group', 'ls', expense.ctrl])
+  .controller('loginCtrl', ['auth', '$state', login])
+  .controller('historyCtrl', ['expense', 'ls', history.ctrl])
+  .controller('mainCtrl', ['auth', '$state', 'group', main])
   .controller('userCtrl', ['user', user.ctrl])
   //CONFIG
   .config(['$httpProvider', hp => {
-    ['auth'].forEach(interceptor => hp.interceptors.push(interceptor));
+    hp.interceptors.push('interceptor');
+    //['interceptor'].forEach(interceptor => hp.interceptors.push(interceptor));
     hp.defaults.headers.delete = {
       'Content-Type': 'application/json'
     }
   }])
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', router])
   .filter('money', money);
