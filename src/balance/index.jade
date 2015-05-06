@@ -1,9 +1,15 @@
 div(data-ng-controller='balanceCtrl as vm').text-center
-  table.table.table-bordered
+  div.row.container
+    h2 Amount each split between {{vm.balances.length}}:&nbsp&nbsp{{vm.balances[0].each | money}}
+  table(id='balances').table.table-bordered
+    thead
+      tr
+        th Name
+        th.text-right Spent
+        th.text-right Owes
     tbody
-      tr(
-        data-ng-repeat='balance in vm.balances',
-        data-ng-class='{"warning":balance.warning, "danger":balance.danger}'
-        )
+      tr(data-ng-repeat='balance in vm.balances')
         td.text-left {{balance.name | uppercase}}
         td.text-right {{balance.balance | money}}
+        td.text-right(data-ng-class='{ "text-success" : balance.owe <= 0 }')
+          | {{balance.owe | money}}
