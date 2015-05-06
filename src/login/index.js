@@ -3,7 +3,7 @@ export default function(auth, $state) {
   let vm = this;
 
   if (auth.loggedIn()) {
-    $state.go('main.balances');
+    return $state.go('main.balances');
   }
 
   vm.selectLogin = true;

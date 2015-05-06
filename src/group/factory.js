@@ -1,20 +1,13 @@
 export default function(ls) {
 
-  let {groups} = ls.get('user');
-  let group = ls.get('group');
+  let user = ls.get('user');
 
-  if (!group) {
-    let first = groups[0];
-    ls.set('group', first);
-    group = first;
+  if (!user) {
+    return {};
+  } else {
+    // only one group at the moment...
+    // take the first
+    return user.groups.pop();
   }
-
-  let {id, name} = group;
-
-  return {
-    all: groups,
-    id,
-    name
-  };
 
 }

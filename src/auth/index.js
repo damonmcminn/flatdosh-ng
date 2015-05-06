@@ -1,4 +1,4 @@
-export default function(ls, API, $state) {
+export default function(ls, API, $state, group) {
 
   let loggedIn = !!ls.get('token');
 
@@ -13,6 +13,11 @@ export default function(ls, API, $state) {
         .success(res => {
           ls.set('token', res.token);
           ls.set('user', res.data);
+
+          // set group as first group (only one at moment)
+          let {id, name} = res.data.groups.shift();
+          group.id = id;
+          group.name = name;
 
           loggedIn = true;
 

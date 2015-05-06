@@ -15,7 +15,7 @@ import user from './user';
 angular.module('flatdosh', ['templates', 'ui.bootstrap', 'ui.router'])
   // FACTORIES
   .factory('API', ['$http', '$window', 'group', API])
-  .factory('auth', ['ls', 'API', '$state', auth])
+  .factory('auth', ['ls', 'API', '$state', 'group', auth])
   .factory('balance', ['API', balance.factory])
   .factory('expense', ['API', expense.factory])
   .factory('group', ['ls', group.factory])
