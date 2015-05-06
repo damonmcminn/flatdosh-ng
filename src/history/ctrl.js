@@ -1,10 +1,11 @@
-export default function(expenseFactory, pubsub, ls) {
+export default function(expenseFactory, ls) {
 
   let vm = this;
 
   // could be undefined? -> should return empty object
-  let user = ls.get('user').id;
-  vm.user = user;
+  let {id, shared} = ls.get('user');
+  vm.user = id;
+  vm.shared = shared;
 
   vm.history = [];
 
@@ -13,22 +14,19 @@ export default function(expenseFactory, pubsub, ls) {
     // null if not exist
     if (shareId) {
       vm.history.filter(e => {
-        return e.user !== user && e.shareId === shareId;
+        return e.user !== id && e.shareId === shareId;
       }).forEach(e => e.delete = !e.delete);
     }
   }
 
   function getHistory() {
     expenseFactory.all().then(history => {
+      history.forEach(item => item.name = item.name.split('@').shift());
       vm.history = history;
     });
   }
 
   getHistory();
-
-  pubsub.sub('update balances', (publisher) => {
-    return publisher === 'history' ? false : getHistory();
-  });
 
   vm.deleteExpenses = function() {
 
@@ -36,23 +34,23 @@ export default function(expenseFactory, pubsub, ls) {
       .filter(e => e.delete)
       .map(e => e.id);
 
-    //let confirmed = confirm('Delete selected expenses?');
+    let confirmed = confirm('Delete selected expenses?');
 
-    //return confirmed ? del(deletions) : false;
+    if (deletions.length > 0 && confirmed) {
 
-    expenseFactory.destroy(deletions).then(res => {
-      // success?
-      
-      pubsub.pub('update balances', 'history');
-      // mark deleted rather than another API call to server
-      res.deleted.forEach(id => {
-        vm.history.forEach(e => {
-          if (e.id === id) {
-            e.deleted = true;
-          }
+      expenseFactory.destroy(deletions).then(res => {
+        // success?
+        
+        // mark deleted rather than another API call to server
+        res.deleted.forEach(id => {
+          vm.history.forEach(e => {
+            if (e.id === id) {
+              e.deleted = true;
+            }
+          });
         });
       });
-    });
+    }
 
   };
 
