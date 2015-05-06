@@ -18,7 +18,7 @@ body {
   max-width: 500px;
 }
 
-.btn {
+.full-width-btn {
   width: 100%;
 }
 
@@ -29,16 +29,45 @@ body {
 
 #balances, #history {
   font-size: 0.8em;
+  margin-top: 2em;
 }
 
 #expense {
-  margin-top: -1.5em;
+  margin-top: -1em;
+  font-size: 0.8em;
 }
 
 #delete-btn {
   float: right;
+  font-size: 1em;
+  padding: 3px;
+  margin-bottom: 4px;
 }
 
-.delete-checkboxes {
+table > thead > tr > th.delete-checkboxes {
   width: 40px;
+
+}
+
+#rotate {
+  margin-bottom: 1em;
+}
+
+@media (max-width: 460px) {
+  #history .weeny {
+    display: none;
+  }
+  #delete-btn {
+    display: none;
+  }
+}
+
+@media (min-width: 461px) {
+  #rotate {
+    display: none;
+  }
+}
+
+#history td {
+  vertical-align: middle;
 }
