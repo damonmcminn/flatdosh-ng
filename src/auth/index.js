@@ -1,19 +1,34 @@
-export default function(ls) {
+export default function(ls, API, $state) {
+
+  let loggedIn = !!ls.get('token');
 
   return {
 
-    request (config) {
+    loggedIn () {
+      return loggedIn;
+    },
 
-      // don't attach token to login request
-      let login = /\/login$/.test(config.url);
-      if (login) {
-        return config;
-      }
+    login (user) {
+      return API.login(user)
+        .success(res => {
+          ls.set('token', res.token);
+          ls.set('user', res.data);
 
-      // also intercepts templates, but doesn't matter
-      config.headers.authorization = `Bearer ${ls.get('token')}`;
-      return config;
+          loggedIn = true;
 
+          $state.go('main.balances');
+
+        });
+    },
+
+    logout () {
+      // drop user and group also?
+      ls.drop('token');
+      loggedIn = false;
+    },
+
+    register (user) {
+      return API.register(user);
     }
 
   };
