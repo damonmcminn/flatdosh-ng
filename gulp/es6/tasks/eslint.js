@@ -15,6 +15,5 @@ export default function () {
         modules: true
       }
     }))
-    .pipe(lint.format())
-    .pipe(lint.failOnError());
+    .pipe(lint.format());
 }

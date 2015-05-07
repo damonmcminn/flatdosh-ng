@@ -26,7 +26,7 @@ exports['default'] = function () {
     ecmaFeatures: {
       modules: true
     }
-  })).pipe(_lint2['default'].format()).pipe(_lint2['default'].failOnError());
+  })).pipe(_lint2['default'].format());
 };
 
 module.exports = exports['default'];

@@ -15,16 +15,17 @@ import lint from './tasks/eslint';
 
 gulp.task('server', () => {
   connect.server({
-    root: 'build',
+    root: 'dev-build',
     port: 30000,
-    livereload: true
+    livereload: true,
+    fallback: 'build/index.html'
   });
 });
 
-gulp.task('html', html);
-gulp.task('js', js);
-gulp.task('css', css);
-gulp.task('templates', templates);
+gulp.task('html', html.dev);
+gulp.task('js', js.dev);
+gulp.task('css', css.dev);
+gulp.task('templates', templates.dev);
 gulp.task('lint', lint);
 //gulp.task('test', test);
 
@@ -36,8 +37,17 @@ gulp.task('watch', function() {
   gulp.watch(['src/**/*.js', 'src/*.js'], ['lint', 'js']);
 });
 
-gulp.task('compile', ['html', 'css', 'templates', 'js']);
+gulp.task('compile', () => {
+
+  process.env.NODE_ENV = 'production';
+
+  html.production();
+  css.production();
+  templates.production();
+  js.production();
+
+});
 
 export default gulp.task('default',[
-  'server', 'js', 'html', 'css', 'templates', 'lint', 'watch', 'compile'
+  'server', 'js', 'html', 'css', 'templates', 'lint', 'watch'
 ]);

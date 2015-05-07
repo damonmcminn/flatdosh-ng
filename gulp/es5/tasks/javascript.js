@@ -28,11 +28,18 @@ var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 
-exports['default'] = function () {
+exports['default'] = { dev: dev, production: production };
+
+function dev() {
   return browserify({ entries: './src/index.js', debug: true }).transform(_babelify2['default']).bundle().pipe(source('bundle.js')).pipe(buffer()).pipe(sourcemaps.init({ loadMaps: true }))
   // transform tasks follow
-  .pipe(_preprocess2['default']()).pipe(uglify()).pipe(sourcemaps.write('./')).pipe(gulp.dest('build')).pipe(livereload());
-};
+  .pipe(_preprocess2['default']()).pipe(sourcemaps.write('./')).pipe(gulp.dest('dev-build')).pipe(livereload());
+}
 
+function production() {
+  return browserify({ entries: './src/index.js' }).transform(_babelify2['default']).bundle().pipe(source('bundle.js')).pipe(buffer())
+  // transform tasks follow
+  .pipe(_preprocess2['default']()).pipe(uglify()).pipe(gulp.dest('build'));
+}
 module.exports = exports['default'];
 //# sourceMappingURL=javascript.js.map

@@ -12,7 +12,9 @@ import preprocess from 'gulp-preprocess';
 // sort this out
 import watchify from 'watchify';
 
-export default function() {
+export default {dev, production}
+
+function dev() {
   return browserify({entries: './src/index.js', debug: true})
   .transform(babelify)
   .bundle()
@@ -21,8 +23,19 @@ export default function() {
   .pipe(sourcemaps.init({loadMaps: true}))
   // transform tasks follow
   .pipe(preprocess())
-  .pipe(uglify())
   .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('build'))
+  .pipe(gulp.dest('dev-build'))
   .pipe(livereload());
+}
+
+function production() {
+  return browserify({entries: './src/index.js'})
+  .transform(babelify)
+  .bundle()
+  .pipe(source('bundle.js'))
+  .pipe(buffer())
+  // transform tasks follow
+  .pipe(preprocess())
+  .pipe(uglify())
+  .pipe(gulp.dest('build'))
 }

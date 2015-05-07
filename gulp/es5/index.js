@@ -48,16 +48,17 @@ _install.install();
 
 _gulp2['default'].task('server', function () {
   _connect2['default'].server({
-    root: 'build',
+    root: 'dev-build',
     port: 30000,
-    livereload: true
+    livereload: true,
+    fallback: 'build/index.html'
   });
 });
 
-_gulp2['default'].task('html', _html2['default']);
-_gulp2['default'].task('js', _js2['default']);
-_gulp2['default'].task('css', _css2['default']);
-_gulp2['default'].task('templates', _templates2['default']);
+_gulp2['default'].task('html', _html2['default'].dev);
+_gulp2['default'].task('js', _js2['default'].dev);
+_gulp2['default'].task('css', _css2['default'].dev);
+_gulp2['default'].task('templates', _templates2['default'].dev);
 _gulp2['default'].task('lint', _lint2['default']);
 //gulp.task('test', test);
 
@@ -69,8 +70,16 @@ _gulp2['default'].task('watch', function () {
   _gulp2['default'].watch(['src/**/*.js', 'src/*.js'], ['lint', 'js']);
 });
 
-_gulp2['default'].task('compile', ['html', 'css', 'templates', 'js']);
+_gulp2['default'].task('compile', function () {
 
-exports['default'] = _gulp2['default'].task('default', ['server', 'js', 'html', 'css', 'templates', 'lint', 'watch', 'compile']);
+  process.env.NODE_ENV = 'production';
+
+  _html2['default'].production();
+  _css2['default'].production();
+  _templates2['default'].production();
+  _js2['default'].production();
+});
+
+exports['default'] = _gulp2['default'].task('default', ['server', 'js', 'html', 'css', 'templates', 'lint', 'watch']);
 module.exports = exports['default'];
 //# sourceMappingURL=index.js.map
