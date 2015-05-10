@@ -71,3 +71,11 @@ table > thead > tr > th.delete-checkboxes {
 #history td {
   vertical-align: middle;
 }
+
+#info {
+  margin-top: -70px;
+}
+
+#contact {
+  padding: 1em;
+}
