@@ -39,7 +39,7 @@ export default function(auth, $state) {
         .success(() => {
           actions.login();
         })
-        .error(err => console.log(err));
+        .error(err => vm.error = err.message);
     }
   };
 
